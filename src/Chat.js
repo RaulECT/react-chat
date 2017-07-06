@@ -6,12 +6,14 @@ class Chat extends Component {
       <div>
         <div>
           <div>
-            <strong>lmao</strong> -se ha conectado
-            <br/>
-            <strong>test2</strong> -se ha conectado
-            <br/>
-            <strong>lmao</strong> -Hay lmao
-            <br/>
+            {this.props.messages.map( ( message, index ) => {
+              return(
+                <div>
+                  <strong key={index}>{message.usuario}</strong> -{message.mensaje}
+                  <br/>
+                </div>
+              )
+            } )}
           </div>
 
           <form id="formularioChat">

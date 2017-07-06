@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import store from '../store'
 import io from 'socket.io-client'
 import UserLogin from '../UserLogin'
-import Chat from '../Chat'
+import ChatContainer from './ChatContainer'
 
 let socket = io(`https://chatsocketsio.herokuapp.com/`)
 
@@ -27,7 +27,7 @@ class UserLoginContainer extends Component {
 
       if ( store.getState().userState.isUserLogged ) {
         return(
-          <Chat />
+          <ChatContainer />
         )
       } else {
         return(

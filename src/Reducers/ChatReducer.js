@@ -6,11 +6,7 @@ const chatReducer = ( state = initialState, action ) => {
   switch ( action.type ) {
     case 'NEW_MESSAGE':
       return Object.assign( {}, state, {
-        messages: [
-          state.messages,
-          action.message
-        ]
-
+        messages: state.messages.concat( action.message )
       } )
       break;
     default:
