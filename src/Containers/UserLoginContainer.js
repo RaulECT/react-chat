@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import store from '../store'
 import io from 'socket.io-client'
 import UserLogin from '../UserLogin'
+import Chat from '../Chat'
 
 let socket = io(`https://chatsocketsio.herokuapp.com/`)
 
@@ -14,13 +15,27 @@ class UserLoginContainer extends Component {
 
     socket.emit( 'nuevo usuario', userName.value, ( data ) => {
       console.log( userName.value )
+      store.dispatch( {
+        type: 'USER_LOGGED_SUCCESS'
+      } )
     } )
   }
 
   render() {
-    return(
-      <UserLogin login={this.login} />
-    )
+    console.log( store.getState() );
+
+
+      if ( store.getState().userState.isUserLogged ) {
+        return(
+          <Chat />
+        )
+      } else {
+        return(
+          <UserLogin login={this.login} />
+        )
+      }
+
+
   }
 
 }
