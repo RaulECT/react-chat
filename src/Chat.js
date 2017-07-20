@@ -8,7 +8,7 @@ class Chat extends Component {
           <div>
             {this.props.messages.map( ( message, index ) => {
               return(
-                <div>
+                <div key={index}>
                   <strong key={index}>{message.usuario}</strong> -{message.mensaje}
                   <br/>
                 </div>
@@ -16,11 +16,11 @@ class Chat extends Component {
             } )}
           </div>
 
-          <form id="formularioChat">
+          <form id="formularioChat" onSubmit={this.props.sendMessage}>
             <div>
-              <input type="text" />
+              <input type="text" name="message"/>
               <span>
-                <button>Enviar</button>
+                <input type="submit" value="enviar" />
               </span>
             </div>
           </form>
@@ -28,7 +28,17 @@ class Chat extends Component {
 
         <div>
           <h4>Usuarios</h4>
-          <div>lmao<br/>test2<br/></div>
+          <div>
+            {this.props.users.map( ( user, index ) => {
+              return(
+                <div key={index}>
+                  {user}
+                  <br/>
+                </div>
+              )
+            } )}
+
+          </div>
         </div>
       </div>
     )

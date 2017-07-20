@@ -17,6 +17,15 @@ class ChatContainer extends Component {
 
       console.log( store.getState() );
     } )
+
+    socket.on( 'actualizarUsuarios', usuario => {
+      store.dispatch( {
+        type: 'NEW_USER',
+        user: usuario
+      } )
+
+      console.log( store.getState() )
+    } )
   }
 
   listAllMessages() {
@@ -33,16 +42,28 @@ class ChatContainer extends Component {
     } )
   }
 
+  sendMessage( event ) {
+    event.preventDefault();
+
+    let message = event.target.message
+
+    socket.emit( 'nuevo mensaje', message.value )
+  }
+
   render() {
     return(
-      <Chat listAllMessages={this.listAllMessages} messages={store.getState().chatState.messages}/>
+      <Chat listAllMessages={this.listAllMessages}
+            messages={store.getState().chatState.messages}
+            users={store.getState().usersState.users}
+            sendMessage={this.sendMessage} />
     )
   }
 }
 
 const mapStateToProps = ( store ) => {
   return {
-    messages: store.chatState.messages
+    messages: store.chatState.messages,
+    users: store.userState.users
   }
 }
 
